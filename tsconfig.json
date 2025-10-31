@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": true,
+    "lib": ["ES6", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "h.f",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "omi-elements": ["./src/lib/index.tsx"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  // 忽略所有错误
+  // "exclude": ["node_modules", "**/*.spec.ts", "**/*.tsx", "**/*.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
