@@ -1,193 +1,194 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/omi.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OMI Elements</title>
-    <link rel="stylesheet" href="./src/scss/tailwind.scss" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="theme-color" content="#f8fafc" />
-    <style>
-      button,
-      input,
-      select,
-      textarea {
-        font-family: var(--app-font) !important;
-      }
 
-      body {
-        font-family:
-          Be Vietnam Pro,
-          ui-sans-serif,
-          -apple-system,
-          system-ui,
-          Segoe UI,
-          Helvetica,
-          Apple Color Emoji,
-          Arial,
-          sans-serif,
-          Segoe UI Emoji,
-          Segoe UI Symbol;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        margin: 1rem;
-      }
-    </style>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const toggleButton = document.getElementById('theme-toggle-btn')
-        let currentHostTheme = 'normal'
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/omi.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OMI Elements</title>
+  <link rel="stylesheet" href="./src/scss/tailwind.scss" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  <meta name="theme-color" content="#f8fafc" />
+  <style>
+    button,
+    input,
+    select,
+    textarea {
+      font-family: var(--app-font) !important;
+    }
 
-        toggleButton.addEventListener('click', () => {
-          // Chuyển đổi theme
-          currentHostTheme = currentHostTheme === 'normal' ? 'dark' : 'normal'
+    body {
+      font-family:
+        Be Vietnam Pro,
+        ui-sans-serif,
+        -apple-system,
+        system-ui,
+        Segoe UI,
+        Helvetica,
+        Apple Color Emoji,
+        Arial,
+        sans-serif,
+        Segoe UI Emoji,
+        Segoe UI Symbol;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 1rem;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleButton = document.getElementById('theme-toggle-btn')
+      let currentHostTheme = 'normal'
 
-          // 1. Tạo một Custom Event với tên 'theme-change'
-          // Dữ liệu mới (dark/light) được đính kèm trong 'detail'
-          const themeChangeEvent = new CustomEvent('theme-change', {
-            detail: { theme: currentHostTheme },
-          })
+      toggleButton.addEventListener('click', () => {
+        // Chuyển đổi theme
+        currentHostTheme = currentHostTheme === 'normal' ? 'dark' : 'normal'
 
-          // 2. Phát sự kiện này ra đối tượng window
-          window.dispatchEvent(themeChangeEvent)
-          // toogleDark();
-          console.log(`Ứng dụng chủ đã PHÁT sự kiện đổi theme thành: ${currentHostTheme}`)
+        // 1. Tạo một Custom Event với tên 'theme-change'
+        // Dữ liệu mới (dark/light) được đính kèm trong 'detail'
+        const themeChangeEvent = new CustomEvent('theme-change', {
+          detail: { theme: currentHostTheme },
         })
 
-        const myApp = document.querySelector('vb-wc-history-call-voice-to-text')
-        const countDisplay = document.getElementById('countDisplay')
-        const hostCountBtn = document.getElementById('hostCountBtn')
-
-        if (myApp) {
-          // setTimeout(() => {
-          // Set props
-          myApp.props = {
-            projectCode: 'PR202508271049469150',
-          }
-
-          // ✅ Dispatch custom event
-          const event = new CustomEvent('props-updated', {
-            detail: { projectCode: 'PR202508271049469150' },
-          })
-          myApp.dispatchEvent(event)
-          // }, 100);
-        }
-
-        if (myApp && countDisplay && hostCountBtn) {
-          // Lắng nghe sự kiện count-event để cập nhật hiển thị
-          myApp.addEventListener('count-event', (e) => {
-            countDisplay.textContent = 'Count value: ' + e.detail.message
-          })
-
-          // Khi bấm nút ngoài host thì gọi phương thức countUp trong vb-wc-history-call-voice-to-text
-          hostCountBtn.addEventListener('click', () => {
-            myApp.countUp()
-          })
-        }
-
-        try {
-          if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-          ) {
-            walkDOMAndToggleDark(document.body, false)
-            document.documentElement.classList.add('dark')
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0B1120')
-          } else {
-            walkDOMAndToggleDark(document.body, true)
-            document.documentElement.classList.remove('dark')
-          }
-        } catch (_) {}
+        // 2. Phát sự kiện này ra đối tượng window
+        window.dispatchEvent(themeChangeEvent)
+        // toogleDark();
+        console.log(`Ứng dụng chủ đã PHÁT sự kiện đổi theme thành: ${currentHostTheme}`)
       })
 
-      function toggleNodeDark(node, isDark) {
-        if (node instanceof HTMLElement && node.tagName.toLowerCase().indexOf('-') !== -1) {
-          if (isDark) {
-            node.classList.remove('dark')
-          } else {
-            node.classList.add('dark')
-          }
+      const myApp = document.querySelector('vb-wc-zalo')
+      const countDisplay = document.getElementById('countDisplay')
+      const hostCountBtn = document.getElementById('hostCountBtn')
+
+      if (myApp) {
+        // setTimeout(() => {
+        // Set props
+        myApp.props = {
+          projectCode: 'PR202508271049469150',
         }
+
+        // ✅ Dispatch custom event
+        const event = new CustomEvent('props-updated', {
+          detail: { projectCode: 'PR202508271049469150' },
+        })
+        myApp.dispatchEvent(event)
+        // }, 100);
       }
 
-      function walkDOMAndToggleDark(rootNode, isDark) {
+      if (myApp && countDisplay && hostCountBtn) {
+        // Lắng nghe sự kiện count-event để cập nhật hiển thị
+        myApp.addEventListener('count-event', (e) => {
+          countDisplay.textContent = 'Count value: ' + e.detail.message
+        })
+
+        // Khi bấm nút ngoài host thì gọi phương thức countUp trong vb-wc-zalo
+        hostCountBtn.addEventListener('click', () => {
+          myApp.countUp()
+        })
+      }
+
+      try {
+        if (
+          localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+          walkDOMAndToggleDark(document.body, false)
+          document.documentElement.classList.add('dark')
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0B1120')
+        } else {
+          walkDOMAndToggleDark(document.body, true)
+          document.documentElement.classList.remove('dark')
+        }
+      } catch (_) { }
+    })
+
+    function toggleNodeDark(node, isDark) {
+      if (node instanceof HTMLElement && node.tagName.toLowerCase().indexOf('-') !== -1) {
         if (isDark) {
-          document.documentElement.classList.remove('dark')
+          node.classList.remove('dark')
         } else {
-          document.documentElement.classList.add('dark')
-        }
-        const treeWalker = document.createTreeWalker(rootNode, NodeFilter.SHOW_ELEMENT, null, false)
-
-        while (treeWalker.nextNode()) {
-          const node = treeWalker.currentNode
-          toggleNodeDark(node, isDark)
-
-          // Check if the node has a shadow root
-          if (node.shadowRoot) {
-            walkDOMAndToggleDark(node.shadowRoot, isDark)
-          }
-
-          // Check if the node has assigned nodes (for slots)
-          if (node.assignedNodes) {
-            node.assignedNodes().forEach((assignedNode) => {
-              if (assignedNode.nodeType === Node.ELEMENT_NODE) {
-                walkDOMAndToggleDark(assignedNode, isDark)
-              }
-            })
-          }
+          node.classList.add('dark')
         }
       }
+    }
 
-      function toogleDark() {
-        console.log('toggle dark mode host')
-        if (document.documentElement.classList.contains('dark')) {
-          localStorage.theme = 'light'
-          walkDOMAndToggleDark(document.body, true)
-          document.documentElement.classList.remove('dark')
-        } else {
-          localStorage.theme = 'dark'
-          walkDOMAndToggleDark(document.body, false)
-          document.documentElement.classList.add('dark')
+    function walkDOMAndToggleDark(rootNode, isDark) {
+      if (isDark) {
+        document.documentElement.classList.remove('dark')
+      } else {
+        document.documentElement.classList.add('dark')
+      }
+      const treeWalker = document.createTreeWalker(rootNode, NodeFilter.SHOW_ELEMENT, null, false)
+
+      while (treeWalker.nextNode()) {
+        const node = treeWalker.currentNode
+        toggleNodeDark(node, isDark)
+
+        // Check if the node has a shadow root
+        if (node.shadowRoot) {
+          walkDOMAndToggleDark(node.shadowRoot, isDark)
+        }
+
+        // Check if the node has assigned nodes (for slots)
+        if (node.assignedNodes) {
+          node.assignedNodes().forEach((assignedNode) => {
+            if (assignedNode.nodeType === Node.ELEMENT_NODE) {
+              walkDOMAndToggleDark(assignedNode, isDark)
+            }
+          })
         }
       }
+    }
 
-      function refreshDark() {
-        if (document.documentElement.classList.contains('dark')) {
-          walkDOMAndToggleDark(document.body, false)
-        } else {
-          walkDOMAndToggleDark(document.body, true)
-        }
+    function toogleDark() {
+      console.log('toggle dark mode host')
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.theme = 'light'
+        walkDOMAndToggleDark(document.body, true)
+        document.documentElement.classList.remove('dark')
+      } else {
+        localStorage.theme = 'dark'
+        walkDOMAndToggleDark(document.body, false)
+        document.documentElement.classList.add('dark')
       }
+    }
 
-      window.addEventListener('load', function () {
-        refreshDark()
-      })
-
-      function handleOpenZaloOA() {
-        const component = document.querySelector('vb-wc-history-call-voice-to-text')
-        if (component && component.openZaloOAPopup) {
-          component.openZaloOAPopup()
-        }
+    function refreshDark() {
+      if (document.documentElement.classList.contains('dark')) {
+        walkDOMAndToggleDark(document.body, false)
+      } else {
+        walkDOMAndToggleDark(document.body, true)
       }
-    </script>
-  </head>
+    }
 
-  <body>
-    <h1>Trang web host</h1>
-    <button id="theme-toggle-btn">Chuyển Theme</button>
-    <button id="hostCountBtn">+ 1 Ở bên ngoài host</button>
-    <p id="countDisplay">Count value will appear here</p>
-    <div style="height: 320px">
-      <vb-wc-history-call-voice-to-text></vb-wc-history-call-voice-to-text>
-    </div>
-    <button id="theme-toggle-btn" onclick="handleOpenZaloOA()">Thêm liên kết OA</button>
+    window.addEventListener('load', function () {
+      refreshDark()
+    })
 
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    function handleOpenZaloOA() {
+      const component = document.querySelector('vb-wc-zalo')
+      if (component && component.openZaloOAPopup) {
+        component.openZaloOAPopup()
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Trang web host</h1>
+  <button id="theme-toggle-btn">Chuyển Theme</button>
+  <button id="hostCountBtn">+ 1 Ở bên ngoài host</button>
+  <p id="countDisplay">Count value will appear here</p>
+  <div style="height: 320px">
+    <vb-wc-zalo />
+  </div>
+  <button id="theme-toggle-btn" onclick="handleOpenZaloOA()">Thêm liên kết OA</button>
+
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
